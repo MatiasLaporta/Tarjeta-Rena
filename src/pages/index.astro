@@ -1,0 +1,400 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+// Datos de contacto (el vCard se arma con estos mismos valores)
+const profile = {
+  firstName: 'Rena',
+  lastName: '', // TODO: apellido
+  email: 'rena@example.com', // TODO: correo real
+  phone: '', // opcional, ej. '+447700900000'
+  org: 'Hills Road Sixth Form College',
+  title: 'Aspiring Public Affairs & Policy Apprentice',
+  linkedin: 'https://www.linkedin.com/in/rena/', // TODO: LinkedIn real
+  url: 'https://rena.matiaslaporta.com/',
+  city: 'Cambridge',
+};
+const fullName = [profile.firstName, profile.lastName].filter(Boolean).join(' ');
+
+// Badges de áreas de interés (verde oliva)
+const interests = ['Policy', 'Government Relations', 'Communications'];
+
+// Flechas del lado derecho de cada botón
+const arrowOut = '<path d="M7 17 17 7M8 7h9v9" />';
+const arrowDown = '<path d="M12 5v14M5 12l7 7 7-7" />';
+
+// Botones grandes verticales
+const links = [
+  {
+    label: 'Connect on LinkedIn',
+    sub: 'Professional profile',
+    href: profile.linkedin,
+    external: true,
+    fill: true,
+    track: 'linkedin',
+    arrow: arrowOut,
+    // linkedin (relleno)
+    icon: '<path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45Z"/>',
+  },
+  {
+    label: 'Download Academic CV',
+    sub: 'PDF · Updated 2026',
+    href: '/cv.pdf',
+    download: `${fullName.replace(/\s+/g, '-')}-Academic-CV.pdf`,
+    track: 'cv',
+    arrow: arrowDown,
+    // documento con flecha
+    icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8Z" /><path d="M14 2v6h6M12 18v-6M9 15l3 3 3-3" />',
+  },
+  // Opcional: borrar este objeto si todavía no hay página de ensayos
+  {
+    label: 'Selected Essays & Speeches',
+    sub: 'Writing on policy and public life',
+    href: 'https://example.com/essays', // TODO: enlace real
+    external: true,
+    track: 'essays',
+    arrow: arrowOut,
+    // libro abierto
+    icon: '<path d="M2 4h6a4 4 0 0 1 4 4v13a3 3 0 0 0-3-3H2Z" /><path d="M22 4h-6a4 4 0 0 0-4 4v13a3 3 0 0 1 3-3h7Z" />',
+  },
+];
+
+// Compartir: opciones del desplegable (círculos con la paleta de la tarjeta)
+const shareUrl = profile.url;
+const shareTitle = `${fullName} | ${profile.title}`;
+// WhatsApp soporta *negrita* con asteriscos; X/Email los mostrarían literales.
+const shareMessage = `*${fullName} | ${profile.title}*
+
+${profile.org}, Cambridge. Interested in public policy, government relations and strategic communications.
+
+Save my contact details here:
+${shareUrl}`;
+const shareMessagePlain = shareMessage.replace(/\*/g, '');
+const shareTargets = [
+  {
+    label: 'Copy link',
+    id: 'copy-link',
+    // enlace / cadena
+    icon: '<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" /><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />',
+  },
+  {
+    label: 'WhatsApp',
+    href: `https://wa.me/?text=${encodeURIComponent(shareMessage)}`,
+    fill: true,
+    icon: '<path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.76.46 3.45 1.32 4.95L2 22l5.25-1.38c1.44.79 3.07 1.21 4.74 1.21h.01c5.46 0 9.91-4.45 9.91-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2Zm5.78 14.16c-.24.68-1.42 1.31-1.96 1.36-.5.05-.95.24-3.2-.67-2.71-1.09-4.43-3.86-4.56-4.04-.13-.18-1.09-1.45-1.09-2.76 0-1.31.69-1.96.93-2.23.24-.27.53-.34.71-.34.18 0 .35.01.51.01.16.01.39-.06.6.46.24.58.81 2 .88 2.14.07.14.12.31.02.49-.09.18-.14.29-.27.45-.13.16-.28.36-.4.48-.13.13-.27.28-.12.55.15.27.67 1.11 1.45 1.8 1 .89 1.84 1.17 2.11 1.31.27.14.43.12.59-.07.16-.18.68-.79.86-1.06.18-.27.36-.22.6-.13.24.09 1.55.73 1.81.86.27.13.45.2.51.31.07.11.07.63-.17 1.31Z"/>',
+  },
+  {
+    label: 'LinkedIn',
+    href: `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(shareUrl)}`,
+    fill: true,
+    icon: '<path d="M20.45 20.45h-3.55v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.38-1.85 3.61 0 4.28 2.38 4.28 5.47v6.27ZM5.34 7.43a2.06 2.06 0 1 1 0-4.12 2.06 2.06 0 0 1 0 4.12ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.72v20.56C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.72V1.72C24 .77 23.2 0 22.22 0Z"/>',
+  },
+  {
+    label: 'Facebook',
+    href: `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareUrl)}`,
+    fill: true,
+    icon: '<path d="M24 12.07C24 5.4 18.63 0 12 0S0 5.4 0 12.07c0 6.03 4.39 11.03 10.13 11.93v-8.44H7.08v-3.49h3.05V9.41c0-3.02 1.79-4.69 4.53-4.69 1.31 0 2.69.24 2.69.24v2.97h-1.51c-1.49 0-1.96.93-1.96 1.89v2.25h3.33l-.53 3.49h-2.8V24C19.61 23.1 24 18.1 24 12.07Z"/>',
+  },
+  {
+    label: 'X',
+    href: `https://twitter.com/intent/tweet?text=${encodeURIComponent(shareMessagePlain)}`,
+    fill: true,
+    icon: '<path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.46l8.6-9.83L0 1.15h7.59l5.24 6.93 6.07-6.93Zm-1.29 19.5h2.04L6.49 3.24H4.31l13.3 17.41Z"/>',
+  },
+  {
+    label: 'Email',
+    href: `mailto:?subject=${encodeURIComponent(shareTitle)}&body=${encodeURIComponent(shareMessagePlain)}`,
+    icon: '<rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-10 5L2 7" />',
+  },
+];
+---
+
+<Layout
+  title={`${fullName} | Public Affairs & Policy`}
+  description="Hills Road Sixth Form College student and aspiring Public Affairs & Policy apprentice. Interested in public policy, government relations and strategic communications."
+  canonical={profile.url}
+  image={`${profile.url}rena.jpg`}
+>
+  <div class="min-h-screen bg-[radial-gradient(circle_at_50%_15%,var(--color-crimson-light)_0%,var(--color-crimson)_55%,var(--color-crimson-dark)_100%)] text-ivory">
+  <main class="mx-auto flex min-h-dvh w-full max-w-[390px] flex-col items-center px-4 pt-[calc(3.25rem+env(safe-area-inset-top))] pb-[calc(1.75rem+env(safe-area-inset-bottom))] text-center">
+    <!-- 1. Foto con anillo ocre fino -->
+    <header class="reveal">
+      <div id="portrait" class="group/portrait size-34 rounded-full border-2 border-ochre-bright/90 p-[3px] shadow-[0_0_0_1px_rgb(224_168_56/0.25),0_0_22px_2px_rgb(224_168_56/0.45),0_0_60px_12px_rgb(179_127_29/0.22)]">
+        <img
+          src="/rena.jpg"
+          alt={`Portrait of ${fullName}`}
+          width="136"
+          height="136"
+          fetchpriority="high"
+          class="size-full rounded-full bg-crimson-dark object-cover group-[.no-photo]/portrait:hidden"
+        />
+        <span
+          aria-hidden="true"
+          class="hidden size-full items-center justify-center rounded-full bg-crimson-dark font-serif text-[3.25rem] font-medium text-ochre-light group-[.no-photo]/portrait:flex"
+        >
+          {profile.firstName.charAt(0)}
+        </span>
+      </div>
+    </header>
+
+    <!-- 2. Nombre y título -->
+    <section class="reveal" aria-labelledby="name">
+      <h1 id="name" class="mt-6 font-serif text-4xl font-normal tracking-tight text-ivory">
+        {fullName}
+      </h1>
+      <p class="mt-3 text-[11px] font-semibold tracking-[0.25em] text-ochre-light uppercase">{profile.org}</p>
+      <p class="mt-1.5 font-serif text-base text-ivory-muted italic">{profile.title}</p>
+      <ul class="my-3 flex items-center justify-center gap-1.5" aria-label="Areas of interest">
+        {interests.map((i) => (
+          <li class="cursor-default shrink-0 rounded-full border border-olive/60 bg-olive/30 px-2.5 py-0.5 text-[10px] tracking-wider whitespace-nowrap max-[380px]:px-2 max-[380px]:tracking-wide text-white uppercase select-none">{i}</li>
+        ))}
+      </ul>
+    </section>
+
+    <!-- Separador ornamental -->
+    <div class="reveal my-7 flex w-full items-center gap-3 text-ochre/80" aria-hidden="true">
+      <span class="h-px flex-1 bg-linear-to-r from-transparent to-ochre/45"></span>
+      <svg class="size-2" viewBox="0 0 8 8" fill="currentColor"><path d="M4 0 8 4 4 8 0 4Z" /></svg>
+      <span class="h-px flex-1 bg-linear-to-r from-ochre/45 to-transparent"></span>
+    </div>
+
+    <!-- 3. Acciones rápidas -->
+    <nav aria-label="Contact" class="reveal mx-auto grid w-full max-w-xs grid-cols-2 gap-3">
+      <button
+        id="save-contact"
+        type="button"
+        data-track="save_contact"
+        class="flex cursor-pointer items-center justify-center gap-2 h-10 rounded-xl bg-ochre px-4 text-xs font-semibold tracking-wide text-ochre-ink shadow-md transition-all hover:bg-ochre-light active:scale-[0.98]"
+      >
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M19 8v6M22 11h-6" />
+        </svg>
+        Save contact
+      </button>
+      <a
+        href={`mailto:${profile.email}`}
+        data-track="email"
+        class="flex items-center justify-center gap-2 h-10 rounded-xl border border-ochre/60 bg-surface px-4 text-xs font-medium tracking-wide text-ivory transition-all hover:bg-ochre/15 active:scale-[0.98]"
+      >
+        <svg class="size-4 text-ochre-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-10 5L2 7" />
+        </svg>
+        Email
+      </a>
+    </nav>
+
+    <!-- 4. Botones de enlaces -->
+    <div class="reveal mx-auto mt-7 flex w-full max-w-sm flex-col gap-3">
+      {links.map((l) => (
+        <a
+          href={l.href}
+          target={l.external ? '_blank' : undefined}
+          rel={l.external ? 'noopener noreferrer' : undefined}
+          download={l.download}
+          data-track={l.track}
+          class="group flex w-full items-center justify-between rounded-2xl border border-ochre/45 bg-white/[0.06] p-4 text-left backdrop-blur-md transition-all duration-200 hover:border-ochre/60 hover:bg-ochre/10 active:scale-[0.99]"
+        >
+          <span class="flex min-w-0 items-center gap-4">
+            <span class="flex size-10 shrink-0 items-center justify-center rounded-full border border-ochre/45 text-lg text-ochre-bright">
+              <svg
+                class="size-[1em]"
+                viewBox="0 0 24 24"
+                fill={l.fill ? 'currentColor' : 'none'}
+                stroke={l.fill ? 'none' : 'currentColor'}
+                stroke-width="1.8"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+                set:html={l.icon}
+              />
+            </span>
+            <span class="min-w-0">
+              <span class="block text-[15px] font-medium text-white">{l.label}</span>
+              <span class="mt-0.5 block text-xs text-ivory-soft">{l.sub}</span>
+            </span>
+          </span>
+          <svg
+            class="ml-3 size-[1em] shrink-0 text-lg text-ochre-bright transition-transform duration-200 group-hover:translate-x-0.5 motion-reduce:transition-none"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            aria-hidden="true"
+            set:html={l.arrow}
+          />
+        </a>
+      ))}
+    </div>
+
+    <!-- 5. Compartir (botón + desplegable) -->
+    <div class="reveal relative z-30 mt-8 inline-block">
+      <button
+        id="share-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="share-panel"
+        data-track="share"
+        class="inline-flex min-h-11 cursor-pointer items-center justify-center gap-2 rounded-full border border-ochre/45 bg-white/[0.04] px-6 text-sm font-medium text-ivory transition-all duration-200 hover:border-ochre hover:bg-ochre/10 aria-expanded:border-ochre aria-expanded:bg-ochre/10"
+      >
+        <svg class="size-4 text-ochre-bright" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <circle cx="18" cy="5" r="3" /><circle cx="6" cy="12" r="3" /><circle cx="18" cy="19" r="3" />
+          <path d="m8.59 13.51 6.83 3.98M15.41 6.51l-6.82 3.98" />
+        </svg>
+        Share this card
+      </button>
+
+      <div
+        id="share-panel"
+        class="absolute bottom-full left-1/2 z-20 mb-3 hidden w-72 -translate-x-1/2 rounded-2xl border border-ochre/40 bg-crimson-dark p-5 text-left shadow-[0_18px_50px_-12px_rgb(0_0_0/0.75)]"
+      >
+        <p class="text-center text-[10px] font-semibold tracking-[0.25em] text-ochre-light uppercase">Share this card</p>
+        <div class="mt-4 grid grid-cols-3 gap-y-4">
+          {shareTargets.map((t) => (
+            <a
+              href={t.href ?? '#'}
+              id={t.id}
+              target={t.href?.startsWith('http') ? '_blank' : undefined}
+              rel={t.href?.startsWith('http') ? 'noopener noreferrer' : undefined}
+              aria-label={t.id ? t.label : `Share via ${t.label}`}
+              data-track={`share_${t.label.toLowerCase().replace(/\s+/g, '_')}`}
+              class="group flex flex-col items-center gap-1.5"
+            >
+              <span class="flex size-12 items-center justify-center rounded-full border border-ochre/45 bg-surface text-ochre-bright transition-all duration-200 group-hover:border-ochre group-hover:bg-ochre/15 group-active:scale-95">
+                <svg
+                  class="size-5"
+                  viewBox="0 0 24 24"
+                  fill={t.fill ? 'currentColor' : 'none'}
+                  stroke={t.fill ? 'none' : 'currentColor'}
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                  set:html={t.icon}
+                />
+              </span>
+              <span class="text-[11px] text-ivory-soft">{t.label}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+
+    <!-- 6. Micro-footer -->
+    <footer class="mt-auto pt-10 text-[0.72rem] tracking-[0.04em] text-ivory-dim">
+      <p class="font-serif text-[0.95rem] tracking-[0.02em] text-ivory-muted italic">Cambridge, United Kingdom</p>
+      <p class="mt-1">&copy; {new Date().getFullYear()} {fullName}</p>
+    </footer>
+  </main>
+  </div>
+
+  <!-- Datos para el script del cliente -->
+  <script type="application/json" id="card-data" set:html={JSON.stringify({ profile, fullName })} />
+</Layout>
+
+<script>
+  const { profile, fullName } = JSON.parse(document.getElementById('card-data')!.textContent!);
+
+  // ---- Foto: si no existe, mostrar monograma ----
+  const portrait = document.getElementById('portrait')!;
+  const img = portrait.querySelector('img')!;
+  const noPhoto = () => portrait.classList.add('no-photo');
+  if (img.complete && img.naturalWidth === 0) noPhoto();
+  img.addEventListener('error', noPhoto);
+
+  // ---- Analytics: solo si gtag está cargado ----
+  document.querySelectorAll<HTMLElement>('[data-track]').forEach((el) => {
+    el.addEventListener('click', () => {
+      // @ts-ignore
+      if (typeof gtag !== 'undefined') gtag('event', 'click_boton_tarjeta', { nombre_boton: el.dataset.track });
+    });
+  });
+
+  // ---- Guardar contacto (vCard) ----
+  const esc = (s: string) => String(s).replace(/([\\;,])/g, '\\$1');
+  document.getElementById('save-contact')!.addEventListener('click', () => {
+    const p = profile;
+    const vcard = [
+      'BEGIN:VCARD',
+      'VERSION:3.0',
+      `N:${esc(p.lastName)};${esc(p.firstName)};;;`,
+      `FN:${esc(fullName)}`,
+      `ORG:${esc(p.org)}`,
+      `TITLE:${esc(p.title)}`,
+      p.email && `EMAIL;TYPE=INTERNET:${p.email}`,
+      p.phone && `TEL;TYPE=CELL:${p.phone}`,
+      `URL:${p.url}`,
+      `X-SOCIALPROFILE;TYPE=linkedin:${p.linkedin}`,
+      `ADR;TYPE=HOME:;;;${esc(p.city)};;;United Kingdom`,
+      'NOTE:Public Affairs & Policy Apprentice',
+      'END:VCARD',
+    ]
+      .filter(Boolean)
+      .join('\r\n');
+
+    const blob = new Blob([vcard], { type: 'text/vcard;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${fullName.replace(/\s+/g, '-')}.vcf`;
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+  // ---- Compartir (desplegable) ----
+  const shareToggle = document.getElementById('share-toggle')!;
+  const sharePanel = document.getElementById('share-panel')!;
+
+  function setSharePanel(open: boolean) {
+    sharePanel.classList.toggle('hidden', !open);
+    shareToggle.setAttribute('aria-expanded', String(open));
+  }
+  shareToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    setSharePanel(sharePanel.classList.contains('hidden'));
+  });
+  // Cerrar al hacer click fuera o con Escape
+  document.addEventListener('click', (e) => {
+    if (sharePanel.classList.contains('hidden')) return;
+    if (!sharePanel.contains(e.target as Node)) setSharePanel(false);
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') setSharePanel(false);
+  });
+
+  // Copiar enlace al portapapeles
+  const copyLink = document.getElementById('copy-link')!;
+  const copyLabel = copyLink.querySelector('span:last-child')!;
+  copyLink.addEventListener('click', async (e) => {
+    e.preventDefault();
+    try {
+      await navigator.clipboard.writeText(profile.url);
+      const original = copyLabel.textContent;
+      copyLabel.textContent = 'Copied!';
+      setTimeout(() => { copyLabel.textContent = original; }, 1500);
+    } catch {
+      window.prompt('Copy this link:', profile.url);
+    }
+  });
+</script>
+
+<style>
+  /* Entrada suave, nada más */
+  .reveal {
+    animation: rise 0.6s cubic-bezier(0.2, 0.7, 0.2, 1) both;
+  }
+  .reveal:nth-child(2) { animation-delay: 0.06s; }
+  .reveal:nth-child(3) { animation-delay: 0.12s; }
+  .reveal:nth-child(4) { animation-delay: 0.18s; }
+  .reveal:nth-child(5) { animation-delay: 0.24s; }
+  .reveal:nth-child(6) { animation-delay: 0.3s; }
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(8px); }
+    to { opacity: 1; transform: none; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .reveal { animation: none; }
+  }
+</style>

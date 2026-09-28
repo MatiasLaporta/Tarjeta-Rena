@@ -1,0 +1,7 @@
+node_modules/
+dist/
+.astro/
+
+# Tarjetas de referencia (no son parte de este proyecto)
+tarjeta.astro
+tarjeta-hapee.astro

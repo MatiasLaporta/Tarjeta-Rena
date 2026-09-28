@@ -1,0 +1,41 @@
+@import 'tailwindcss';
+
+/* Paleta y tipografía de la tarjeta */
+@theme {
+  --color-crimson-dark: #140204;
+  --color-crimson: #2F0508;
+  --color-crimson-light: #48090E;
+  --color-surface: #2D0609; /* botón Email */
+
+  --color-ochre: #B37F1D;
+  --color-ochre-light: #C78F23;
+  --color-ochre-muted: rgba(179, 127, 29, 0.28);
+  --color-ochre-bright: #E0A838; /* iconos y flechas */
+  --color-ochre-ink: #1A0304; /* texto sobre ocre */
+
+  --color-olive: #4A4B29;
+  --color-olive-badge: rgba(74, 75, 41, 0.60);
+  --color-olive-border: #5C5E34;
+
+  --color-ivory: #FAF8F5;
+  --color-ivory-muted: #D4CDC3;
+  --color-ivory-dim: #A89F91;
+  --color-ivory-soft: #DDD5C7; /* descripciones de tarjetas */
+
+  --font-serif: 'Cormorant Garamond', Garamond, 'Times New Roman', serif;
+  --font-sans: 'Inter', system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    background-color: var(--color-crimson-dark);
+  }
+  body {
+    @apply font-sans text-ivory antialiased;
+  }
+  :focus-visible {
+    outline: 2px solid var(--color-ochre-light);
+    outline-offset: 3px;
+  }
+}
