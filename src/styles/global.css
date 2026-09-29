@@ -29,7 +29,7 @@
 @layer base {
   html {
     -webkit-text-size-adjust: 100%;
-    background-color: var(--color-crimson-dark);
+    background-color: #240409; /* igual al borde del degradado Red Velvet */
   }
   body {
     @apply font-sans text-ivory antialiased;

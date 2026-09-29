@@ -1,5 +1,5 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from '../../layouts/Layout.astro';
 
 // Datos de contacto (el vCard se arma con estos mismos valores)
 const profile = {
@@ -10,7 +10,7 @@ const profile = {
   org: 'Hills Road Sixth Form College',
   title: 'Aspiring Public Affairs & Policy Apprentice',
   linkedin: 'https://www.linkedin.com/in/rena/', // TODO: LinkedIn real
-  url: 'https://rena.matiaslaporta.com/',
+  url: 'https://renatamgazmuri.co.uk/business-card/',
   city: 'Cambridge',
 };
 const fullName = [profile.firstName, profile.lastName].filter(Boolean).join(' ');
@@ -118,13 +118,13 @@ const shareTargets = [
   title={`${fullName} | Public Affairs & Policy`}
   description="Hills Road Sixth Form College student and aspiring Public Affairs & Policy apprentice. Interested in public policy, government relations and strategic communications."
   canonical={profile.url}
-  image={`${profile.url}rena.jpg`}
+  image={new URL('/rena.jpg', Astro.site).href}
 >
-  <div class="min-h-screen bg-[radial-gradient(circle_at_50%_15%,var(--color-crimson-light)_0%,var(--color-crimson)_55%,var(--color-crimson-dark)_100%)] text-ivory">
+  <div class="min-h-screen bg-[radial-gradient(circle_at_50%_18%,#7A1625_0%,#4A0A13_55%,#240409_100%)] text-ivory">
   <main class="mx-auto flex min-h-dvh w-full max-w-[390px] flex-col items-center px-4 pt-[calc(3.25rem+env(safe-area-inset-top))] pb-[calc(1.75rem+env(safe-area-inset-bottom))] text-center">
     <!-- 1. Foto con anillo ocre fino -->
     <header class="reveal">
-      <div id="portrait" class="group/portrait size-34 rounded-full border-2 border-ochre-bright/90 p-[3px] shadow-[0_0_0_1px_rgb(224_168_56/0.25),0_0_22px_2px_rgb(224_168_56/0.45),0_0_60px_12px_rgb(179_127_29/0.22)]">
+      <div id="portrait" class="group/portrait size-34 rounded-full border-2 border-[#B37F1D]/60 p-[3px] shadow-[0_0_16px_rgba(179,127,29,0.22)]">
         <img
           src="/rena.jpg"
           alt={`Portrait of ${fullName}`}
@@ -179,7 +179,7 @@ const shareTargets = [
       <a
         href={`mailto:${profile.email}`}
         data-track="email"
-        class="flex items-center justify-center gap-2 h-10 rounded-xl border border-ochre/60 bg-surface px-4 text-xs font-medium tracking-wide text-ivory transition-all hover:bg-ochre/15 active:scale-[0.98]"
+        class="flex items-center justify-center gap-2 h-10 rounded-xl border border-[#B37F1D]/50 bg-[#3B070E] px-4 text-xs font-medium tracking-wide text-ivory transition-all hover:bg-ochre/15 active:scale-[0.98]"
       >
         <svg class="size-4 text-ochre-light" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <rect x="2" y="4" width="20" height="16" rx="2" /><path d="m22 7-10 5L2 7" />
@@ -197,7 +197,7 @@ const shareTargets = [
           rel={l.external ? 'noopener noreferrer' : undefined}
           download={l.download}
           data-track={l.track}
-          class="group flex w-full items-center justify-between rounded-2xl border border-ochre/45 bg-white/[0.06] p-4 text-left backdrop-blur-md transition-all duration-200 hover:border-ochre/60 hover:bg-ochre/10 active:scale-[0.99]"
+          class="group flex w-full items-center justify-between rounded-2xl border border-[#B37F1D]/35 bg-[#3B070E]/50 p-4 text-left backdrop-blur-md transition-all duration-200 hover:border-ochre/60 hover:bg-ochre/10 active:scale-[0.99]"
         >
           <span class="flex min-w-0 items-center gap-4">
             <span class="flex size-10 shrink-0 items-center justify-center rounded-full border border-ochre/45 text-lg text-ochre-bright">
@@ -256,7 +256,7 @@ const shareTargets = [
         id="share-panel"
         role="dialog"
         aria-label="Share card"
-        class="absolute bottom-[calc(100%+12px)] left-1/2 z-50 hidden w-64 -translate-x-1/2 rounded-2xl border border-[#B37F1D]/35 bg-[#1E0305]/95 p-4 text-left shadow-2xl backdrop-blur-md"
+        class="absolute bottom-[calc(100%+12px)] left-1/2 z-50 hidden w-64 -translate-x-1/2 rounded-2xl border border-[#B37F1D]/40 bg-[#2E050B]/95 p-4 text-left shadow-2xl backdrop-blur-md"
       >
         <div class="relative mb-3">
           <p class="text-center text-[10px] font-semibold tracking-[0.2em] text-[#C78F23] uppercase">Share card</p>
